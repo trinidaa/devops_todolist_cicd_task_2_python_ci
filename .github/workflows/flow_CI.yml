@@ -35,4 +35,4 @@ jobs:
             - name: Test with including coverage
               run: |
                   coverage run manage.py test
-                  pytest -v --cov-report=json --cov=. --cov-report=term-missing
+#                  pytest -v --cov-report=json --cov=. --cov-report=term-missing

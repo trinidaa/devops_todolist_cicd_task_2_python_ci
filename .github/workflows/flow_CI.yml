@@ -1,4 +1,4 @@
-name: python-ci
+name: python-CI
 run-name: ${{ github.actor }} is running ${{ github.event_name }} on ${{ github.ref }}
 on:
     push:
@@ -9,7 +9,7 @@ env:
     PYTHON_VERSION: "3.10"
 
 jobs:
-    build1:
+    python-ci:
         runs-on: ubuntu-latest
         defaults:
             run:
@@ -26,6 +26,7 @@ jobs:
                   pip install -r requirements.txt
             - name: Lint with flake8
               run: |
+                  cd ../
                   flake8 . --show-source --statistics
 #            - name: Test with pytest
 #              run: |

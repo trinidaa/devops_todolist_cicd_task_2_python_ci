@@ -1,5 +1,5 @@
 name: python-ci
-run-name: ${{ github.actor }} is running {{ github.event_name }} on ${{ github.ref }}
+run-name: ${{ github.actor }} is running ${{ github.event_name }} on ${{ github.ref }}
 on:
     push:
         branches: [ "main" ]

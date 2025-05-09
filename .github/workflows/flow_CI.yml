@@ -11,9 +11,7 @@ env:
 jobs:
     python-ci:
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ./src
+
         steps:
             - uses: actions/checkout@v4
             - name: Setup Python ${{ env.PYTHON_VERSION }}
@@ -23,19 +21,20 @@ jobs:
 
             - name: Install dependencies
               run: |
+                  cd src/
                   python -m pip install --upgrade pip
                   pip install flake8 pytest pytest-cov pytest-django
                   pip install coverage
                   pip install -r requirements.txt
 
             - name: Lint with flake8
-              run:  flake8 . --show-source --statistics --output-file=reports/flake/results_Lint.txt
-
+              run: flake8 . --show-source --statistics
             - name: Check Compatibility
-              run: flake8 . --max-complexity=10 --statistics --exit-zero --output-file=reports/flake/results_Compatibility.txt
+              run: flake8 . --max-complexity=10 --statistics --exit-zero
 
             - name: Test with including coverage
               run: |
+                cd src/
                 coverage run --source='.' manage.py test
                 coverage report -m
 
@@ -43,10 +42,10 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                 name: test-coverage-report #-$(date +%Y.%m.%d-%H:%M:%S)
-                path: .
+                path: ./src/
 
             - name: Upload flake8 report
               uses: actions/upload-artifact@v4
               with:
                 name: flake8-report #-$(date +%Y.%m.%d-%H:%M:%S)
-                path: .
+                path: ./src/

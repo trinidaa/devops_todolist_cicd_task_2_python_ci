@@ -24,7 +24,7 @@ jobs:
             - name: Install dependencies
               run: |
                   export DJANGO_SETTINGS_MODULE=todolist.settings
-                  mkdir -p ../reports/flake ../reports/htmlcov
+                  mkdir -p ../reports/flake
                   python -m pip install --upgrade pip
                   pip install flake8 pytest pytest-cov pytest-django
                   pip install coverage
@@ -41,17 +41,14 @@ jobs:
                 coverage run --source='.' manage.py test
                 coverage report -m
 
-            - name: Generate HTML coverage report
-              run: coverage html --directory=/reports/htmlcov
-
             - name: Upload coverage report
               uses: actions/upload-artifact@v4
               with:
-                name: test-coverage-report-$(date +%Y%m%d-%H%M%S)
-                path: ./reports/htmlcov/
+                name: test-coverage-report-$(date +%Y.%m.%d-%H:%M:%S)
+                path: .
 
             - name: Upload flake8 report
               uses: actions/upload-artifact@v4
               with:
-                name: flake8-report-$(date +%Y%m%d-%H%M%S)
+                name: flake8-report-$(date +%Y.%m.%d-%H:%M:%S)
                 path: ./reports/flake/

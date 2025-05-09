@@ -23,7 +23,7 @@ jobs:
                   
             - name: Install dependencies
               run: |
-                  mkdir -p flake htmlcov
+                  mkdir -p reports/flake reports/htmlcov
                   python -m pip install --upgrade pip
                   pip install flake8 pytest pytest-cov
                   pip install coverage
@@ -31,27 +31,27 @@ jobs:
 
             - name: Lint with flake8
               run: |
-                  flake8 . --show-source --statistics --output=flake
+                  flake8 . --show-source --statistics --output-file=reports/flake/results_Lint.txt
 
             - name: Check Compatibility
               run: |
-                  flake8 . --max-complexity=10 --statistics --exit-zero --output=flake
+                  flake8 . --max-complexity=10 --statistics --exit-zero --output-file=reports/flake/results_Compatibility.txt
 
-            - name: Test with including coverage ${{ env.TIMESTAMP }}
+            - name: Test with including coverage
               run: |
-                coverage run -m unittest discover --output=htmlcov
+                coverage run -m unittest discover
 
-            - name: Coverage REPORT ${{ env.TIMESTAMP }}
-              run: coverage report --output=htmlcov
-
-            - name: Upload coverage report
-              uses: actions/upload-artifact@v4
-              with:
-                name: test-coverage-report
-                path: htmlcov/
+            - name: Coverage REPORT
+              run: coverage html --directory=reports/htmlcov
 
             - name: Upload coverage report
               uses: actions/upload-artifact@v4
               with:
-                name: flake8-report
-                path: flake/
+                name: test-coverage-report-${{ env.TIMESTAMP }}
+                path: reports/htmlcov/
+
+            - name: Upload coverage report
+              uses: actions/upload-artifact@v4
+              with:
+                name: flake8-report-${{ env.TIMESTAMP }}
+                path: reports/flake/

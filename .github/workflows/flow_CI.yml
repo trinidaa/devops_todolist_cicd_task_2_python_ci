@@ -24,7 +24,6 @@ jobs:
             - name: Install dependencies
               run: |
                   export DJANGO_SETTINGS_MODULE=todolist.settings
-                  mkdir -p ../reports/flake
                   python -m pip install --upgrade pip
                   pip install flake8 pytest pytest-cov pytest-django
                   pip install coverage
@@ -51,4 +50,4 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                 name: flake8-report #-$(date +%Y.%m.%d-%H:%M:%S)
-                path: ./reports/flake/
+                path: .

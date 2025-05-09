@@ -7,7 +7,7 @@ on:
         branches: [ "main" ]
 env:
     PYTHON_VERSION: "3.10"
-    TIMESTAMP: $(date +%Y%m%d-%H%M%S)
+
 jobs:
     python-ci:
         runs-on: ubuntu-latest
@@ -31,10 +31,10 @@ jobs:
                   pip install -r requirements.txt
 
             - name: Lint with flake8
-              run:  flake8 . --show-source --statistics --output-file=..reports/flake/results_Lint.txt
+              run:  flake8 . --show-source --statistics --output-file=reports/flake/results_Lint.txt
 
             - name: Check Compatibility
-              run: flake8 . --max-complexity=10 --statistics --exit-zero --output-file=..reports/flake/results_Compatibility.txt
+              run: flake8 . --max-complexity=10 --statistics --exit-zero --output-file=reports/flake/results_Compatibility.txt
 
             - name: Test with including coverage
               run: |
@@ -42,16 +42,16 @@ jobs:
                 coverage report -m
 
             - name: Generate HTML coverage report
-              run: coverage html --directory=../reports/htmlcov
+              run: coverage html --directory=/reports/htmlcov
 
             - name: Upload coverage report
               uses: actions/upload-artifact@v4
               with:
-                name: test-coverage-report-${{ env.TIMESTAMP }}
+                name: test-coverage-report-$(date +%Y%m%d-%H%M%S)
                 path: ./reports/htmlcov/
 
             - name: Upload flake8 report
               uses: actions/upload-artifact@v4
               with:
-                name: flake8-report-${{ env.TIMESTAMP }}
+                name: flake8-report-$(date +%Y%m%d-%H%M%S)
                 path: ./reports/flake/

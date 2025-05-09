@@ -44,11 +44,11 @@ jobs:
             - name: Upload coverage report
               uses: actions/upload-artifact@v4
               with:
-                name: test-coverage-report-$(date +%Y.%m.%d-%H:%M:%S)
+                name: test-coverage-report #-$(date +%Y.%m.%d-%H:%M:%S)
                 path: .
 
             - name: Upload flake8 report
               uses: actions/upload-artifact@v4
               with:
-                name: flake8-report-$(date +%Y.%m.%d-%H:%M:%S)
+                name: flake8-report #-$(date +%Y.%m.%d-%H:%M:%S)
                 path: ./reports/flake/

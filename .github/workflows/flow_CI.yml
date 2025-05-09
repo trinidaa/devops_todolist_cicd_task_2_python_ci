@@ -36,7 +36,7 @@ jobs:
               run: flake8 . --max-complexity=10 --statistics --exit-zero --output-file=..reports/flake/results_Compatibility.txt
 
             - name: Test with including coverage
-              run: coverage run -m unittest discover
+              run: coverage run -m unittest discover .
 
             - name: Coverage REPORT
               run: coverage html --directory=..reports/htmlcov

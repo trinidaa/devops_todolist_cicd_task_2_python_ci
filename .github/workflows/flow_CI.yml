@@ -21,11 +21,10 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  cd src/
                   python -m pip install --upgrade pip
                   pip install flake8 pytest pytest-cov pytest-django
                   pip install coverage
-                  pip install -r requirements.txt
+                  pip install -r src/requirements.txt
 
             - name: Lint with flake8
               run: flake8 . --show-source --statistics
@@ -34,8 +33,7 @@ jobs:
 
             - name: Test with including coverage
               run: |
-                cd src/
-                coverage run --source='.' manage.py test
+                coverage run --source='.' src/manage.py test
                 coverage report -m
 
             - name: Upload coverage report

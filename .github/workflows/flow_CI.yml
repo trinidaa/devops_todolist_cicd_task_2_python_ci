@@ -31,11 +31,11 @@ jobs:
 
             - name: Lint with flake8
               run: |
-                  flake8 . --show-source --statistics --directory=flake
+                  flake8 . --show-source --statistics --output=flake
 
             - name: Check Compatibility
               run: |
-                  flake8 . --max-complexity=10 --statistics --exit-zero --directory=flake
+                  flake8 . --max-complexity=10 --statistics --exit-zero --output=flake
 
             - name: Test with including coverage ${{ env.TIMESTAMP }}
               run: |

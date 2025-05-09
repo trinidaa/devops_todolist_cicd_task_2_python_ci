@@ -23,7 +23,6 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  export DJANGO_SETTINGS_MODULE=todolist.settings
                   python -m pip install --upgrade pip
                   pip install flake8 pytest pytest-cov pytest-django
                   pip install coverage
